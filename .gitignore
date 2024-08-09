@@ -1,3 +1,4 @@
+# Native gitignore
 Pipfile
 .vscode/
 .idea/
@@ -48,3 +49,58 @@ manifests/namespace-install.yaml
 node_modules 
 result
 .devenv
+
+# Custom gitignore for Argo Workflows project
+# Ignore everything -------------------------------------------
+*
+
+# But not these directories -----------------------------------
+!pkg/
+
+# Only include the module pkg/apis/workflow/v1alpha1 ----------
+!pkg/apis/
+!pkg/apis/workflow/
+!pkg/apis/workflow/v1alpha1/
+!pkg/apis/workflow/v1alpha1/**
+# Exclude any sub directories ---------------------------------
+pkg/apis/workflow/v1alpha1/*/**
+
+# Only include the module pkg/client/clientset/versioned/typed/workflow/v1alpha1
+!pkg/client/
+!pkg/client/clientset/
+!pkg/client/clientset/versioned/
+!pkg/client/clientset/versioned/typed/
+!pkg/client/clientset/versioned/typed/workflow/
+!pkg/client/clientset/versioned/typed/workflow/v1alpha1/
+!pkg/client/clientset/versioned/typed/workflow/v1alpha1/**
+# Exclude any sub directories ---------------------------------
+pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
+
+# Only include the module workflow/util -----------------------
+!workflow/
+!workflow/util/
+!workflow/util/**
+# Exclude any sub directories ---------------------------------
+workflow/util/*/**
+
+# Only include the module workflow/common ---------------------
+!workflow/common/
+!workflow/common/**
+# Exclude any sub directories ---------------------------------
+workflow/common/*/**
+
+# Only include the module workflow/executor -------------------
+!errors/
+!errors/**
+# Exclude any sub directories ---------------------------------
+errors/*/**
+
+# And not these files -----------------------------------------
+!LICENSE
+!Dockerfile
+!Dockerfile.windows
+!.gitignore
+!Makefile
+!go.mod
+!go.sum
+!version.go
