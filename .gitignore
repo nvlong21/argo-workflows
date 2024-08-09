@@ -1,0 +1,154 @@
+# Native gitignore
+Pipfile
+.vscode/
+.idea/
+.node-version
+.DS_Store
+vendor/
+dist/
+# delve debug binaries
+cmd/**/debug
+hack/**/debug
+/argo
+/argoexec
+release-notes
+debug.test
+git-ask-pass.sh
+*.iml
+/coverage.out
+.envrc
+/.vendor-new
+/kustomize
+/workflow-controller
+/.scannerwork/
+/test-results/
+/package-lock.json
+/pkg/apiclient/_.secondary.swagger.json
+/pkg/apiclient/clusterworkflowtemplate/cluster-workflow-template.swagger.json
+/pkg/apiclient/cronworkflow/cron-workflow.swagger.json
+/pkg/apiclient/event/event.swagger.json
+/pkg/apiclient/eventsource/eventsource.swagger.json
+/pkg/apiclient/info/info.swagger.json
+/pkg/apiclient/pipeline/pipeline.swagger.json
+/pkg/apiclient/sensor/sensor.swagger.json
+/pkg/apiclient/workflow/workflow.swagger.json
+/pkg/apiclient/workflowarchive/workflow-archive.swagger.json
+/pkg/apiclient/workflowtemplate/workflow-template.swagger.json
+/site/
+/.brew_home
+/go-diagrams/
+/.run/
+sdks/python/client/dist/*
+/v3/
+/cmd/argoexec/commands/test.txt
+
+# Do not commit rendered installation manifests since they are misleading to users.
+manifests/install.yaml
+manifests/namespace-install.yaml
+/logs
+node_modules 
+result
+.devenv
+
+# Custom gitignore for Argo Workflows project
+# Ignore everything -------------------------------------------
+*
+
+# But not these directories -----------------------------------
+!pkg/
+
+# Only include the module pkg/apis/workflow/v1alpha1 ----------
+!pkg/apis/
+!pkg/apis/workflow/
+!pkg/apis/workflow/**
+!pkg/apis/workflow/v1alpha1/
+!pkg/apis/workflow/v1alpha1/**
+# Exclude any sub directories ---------------------------------
+pkg/apis/workflow/v1alpha1/*/**
+
+# Only include the module pkg/client/clientset/versioned/typed/workflow/v1alpha1
+!pkg/client/
+!pkg/client/clientset/
+!pkg/client/clientset/versioned/
+
+!pkg/client/clientset/versioned/scheme/
+!pkg/client/clientset/versioned/scheme/**
+# Exclude any sub directories ---------------------------------
+pkg/client/clientset/versioned/scheme/*/**
+
+!pkg/client/clientset/versioned/typed/
+!pkg/client/clientset/versioned/typed/workflow/
+!pkg/client/clientset/versioned/typed/workflow/v1alpha1/
+!pkg/client/clientset/versioned/typed/workflow/v1alpha1/**
+# Exclude any sub directories ---------------------------------
+pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
+
+# Only include the module workflow/util -----------------------
+!workflow/
+!workflow/util/
+!workflow/util/**
+# Exclude any sub directories ---------------------------------
+workflow/util/*/**
+
+# Only include the module workflow/common ---------------------
+!workflow/common/
+!workflow/common/**
+# Exclude any sub directories ---------------------------------
+workflow/common/*/**
+
+# Only include the module workflow/hydrator ---------------------
+!workflow/hydrator/
+!workflow/hydrator/**
+# Exclude any sub directories ---------------------------------
+workflow/hydrator/*/**
+
+# Only include the module workflow/packer ---------------------
+!workflow/packer/
+!workflow/packer/**
+# Exclude any sub directories ---------------------------------
+workflow/packer/*/**
+
+# Only include the module workflow/templateresolution ---------------------
+!workflow/templateresolution/
+!workflow/templateresolution/**
+# Exclude any sub directories ---------------------------------
+workflow/templateresolution/*/**
+
+# Only include the module workflow/common ---------------------
+!workflow/validate/
+!workflow/validate/**
+# Exclude any sub directories ---------------------------------
+workflow/validate/*/**
+
+!util/
+
+# Only include the module util/json -------------------
+!util/slice/
+!util/slice/**
+# Exclude any sub directories ---------------------------------
+util/slice/*/**
+
+# Only include the module util/json -------------------
+!util/json/
+!util/json/**
+# Exclude any sub directories ---------------------------------
+util/json/*/**
+
+# Only include the module errors -------------------
+!errors/
+!errors/**
+# Exclude any sub directories ---------------------------------
+errors/*/**
+
+# And not these files -----------------------------------------
+!LICENSE
+!Dockerfile
+!Dockerfile.windows
+!.gitignore
+!Makefile
+!go.mod
+!go.sum
+!version.go
+
+# Ignore all test files ---------------------------------------
+*_test.go
