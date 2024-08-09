@@ -1,2 +1,0 @@
-mkdocs-material==9.*
-mkdocs-redirects==1.*
