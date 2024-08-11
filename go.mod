@@ -10,7 +10,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.9.3
-	github.com/stretchr/testify v1.9.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	k8s.io/api v0.27.1
 	k8s.io/apimachinery v0.27.1
@@ -113,6 +112,6 @@ require (
 
 // Avoid CVE-2023-45288
 replace (
-	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/Ash-exp/argo-workflows/v3 feat-dependency-optimisation
+	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/Ash-exp/argo-workflows/v3 v3.5.10-beta7
 	golang.org/x/net => golang.org/x/net v0.23.0
 )

@@ -57,10 +57,17 @@ result
 # But not these directories -----------------------------------
 !pkg/
 
+# Only include the module pkg/apiclient/workflow --------------
+!pkg/apiclient/
+!pkg/apiclient/workflow
+!pkg/apiclient/workflow/**
+# Exclude any sub directories ---------------------------------
+pkg/apiclient/workflow/*/**
+
 # Only include the module pkg/apis/workflow/v1alpha1 ----------
 !pkg/apis/
 !pkg/apis/workflow/
-!pkg/apis/workflow/**
+!pkg/apis/workflow/**.go
 !pkg/apis/workflow/v1alpha1/
 !pkg/apis/workflow/v1alpha1/**
 # Exclude any sub directories ---------------------------------
@@ -70,6 +77,7 @@ pkg/apis/workflow/v1alpha1/*/**
 !pkg/client/
 !pkg/client/clientset/
 !pkg/client/clientset/versioned/
+!pkg/client/clientset/versioned/**.go
 
 !pkg/client/clientset/versioned/scheme/
 !pkg/client/clientset/versioned/scheme/**
@@ -85,19 +93,26 @@ pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
 
 !workflow/
 
-# Only include the module workflow/util -----------------------
-!workflow/artifacts/
+# Only include the module workflow/creator -----------------------
+!workflow/creator/
+!workflow/creator/**
+# Exclude any sub directories ---------------------------------
+workflow/creator/*/**
 
+!workflow/artifacts/
+# Only include the module workflow/artifacts/resource -----------------------
 !workflow/artifacts/resource/
 !workflow/artifacts/resource/**
 # Exclude any sub directories ---------------------------------
 workflow/artifacts/resource/*/**
 
+# Only include the module workflow/artifacts/common -----------------------
 !workflow/artifacts/common/
 !workflow/artifacts/common/**
 # Exclude any sub directories ---------------------------------
 workflow/artifacts/common/*/**
 
+# Only include the module workflow/artifacts/hdfs -----------------------
 !workflow/artifacts/hdfs/
 !workflow/artifacts/hdfs/**
 # Exclude any sub directories ---------------------------------
