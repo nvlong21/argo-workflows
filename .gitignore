@@ -138,6 +138,12 @@ workflow/validate/*/**
 !util/*
 !util/*/**.go
 
+# Only include the module config -------------------
+!config/
+!config/**
+# Exclude any sub directories ---------------------------------
+config/*/**
+
 # Only include the module errors -------------------
 !errors/
 !errors/**
