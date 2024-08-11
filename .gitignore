@@ -168,6 +168,9 @@ workflow/validate/*/**
 !util/expr/env/
 !util/expr/env/**
 
+!util/expr/argoexpr/
+!util/expr/argoexpr/**
+
 # Only include the module config -------------------
 !config/
 !config/**
@@ -205,8 +208,15 @@ server/auth/types/*/**
 # Exclude any sub directories ---------------------------------
 server/auth/webhook/*/**
 
-# Exclude any other sub directories ---------------------------------
-server/auth/*/**
+!server/cache/
+!server/cache/**
+# Exclude any sub directories ---------------------------------
+server/cache/*/**
+
+!server/types/
+!server/types/**
+# Exclude any sub directories ---------------------------------
+server/types/*/**
 
 !server/utils/
 !server/utils/**
