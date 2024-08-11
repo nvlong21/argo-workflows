@@ -113,6 +113,6 @@ require (
 
 // Avoid CVE-2023-45288
 replace (
-	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/Ash-exp/argo-workflows/v3 v3.5.10-beta6
+	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/Ash-exp/argo-workflows/v3 feat-dependency-optimisation
 	golang.org/x/net => golang.org/x/net v0.23.0
 )
