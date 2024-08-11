@@ -92,143 +92,48 @@ pkg/client/clientset/versioned/scheme/*/**
 pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
 
 !workflow/
-
-# Only include the module workflow/creator --------------------
-!workflow/creator/
-!workflow/creator/**
-# Exclude any sub directories ---------------------------------
-workflow/creator/*/**
-
-!workflow/artifacts/
-# Only include the module workflow/artifacts/resource ---------
-!workflow/artifacts/resource/
-!workflow/artifacts/resource/**
-# Exclude any sub directories ---------------------------------
-workflow/artifacts/resource/*/**
-
-# Only include the module workflow/artifacts/common -----------------------
-!workflow/artifacts/common/
-!workflow/artifacts/common/**
-# Exclude any sub directories ---------------------------------
-workflow/artifacts/common/*/**
-
-# Only include the module workflow/artifacts/hdfs -----------------------
-!workflow/artifacts/hdfs/
-!workflow/artifacts/hdfs/**
-# Exclude any sub directories ---------------------------------
-workflow/artifacts/hdfs/*/**
-
-# Only include the module workflow/metrics -----------------------
-!workflow/metrics/
-!workflow/metrics/**
-# Exclude any sub directories ---------------------------------
-workflow/metrics/*/**
-
 # Only include the module workflow/util -----------------------
 !workflow/util/
-!workflow/util/**
+!workflow/util/util.go
 # Exclude any sub directories ---------------------------------
 workflow/util/*/**
 
-# Only include the module workflow/common ---------------------
-!workflow/common/
-!workflow/common/**
-# Exclude any sub directories ---------------------------------
-workflow/common/*/**
-
-# Only include the module workflow/hydrator ---------------------
-!workflow/hydrator/
-!workflow/hydrator/**
-# Exclude any sub directories ---------------------------------
-workflow/hydrator/*/**
-
-# Only include the module workflow/packer ---------------------
-!workflow/packer/
-!workflow/packer/**
-# Exclude any sub directories ---------------------------------
-workflow/packer/*/**
-
-# Only include the module workflow/templateresolution ---------------------
-!workflow/templateresolution/
-!workflow/templateresolution/**
-# Exclude any sub directories ---------------------------------
-workflow/templateresolution/*/**
-
-# Only include the module workflow/common ---------------------
-!workflow/validate/
-!workflow/validate/**
-# Exclude any sub directories ---------------------------------
-workflow/validate/*/**
-
 !util/
-!util/*
-!util/*/**.go
-
-!util/expr/
-!util/expr/env/
-!util/expr/env/**
-
-!util/expr/argoexpr/
-!util/expr/argoexpr/**
-
-# Only include the module config -------------------
-!config/
-!config/**
+!util/env/
+!util/env/**
 # Exclude any sub directories ---------------------------------
-config/*/**
+util/env/*/**
 
-# Only include the module errors -------------------
+!util/errors/
+!util/errors/**
+# Exclude any sub directories ---------------------------------
+util/errors/*/**
+
+!util/json/
+!util/json/**
+# Exclude any sub directories ---------------------------------
+util/json/*/**
+
+!util/retry/
+!util/retry/**
+# Exclude any sub directories ---------------------------------
+util/retry/*/**
+
+!util/slice/
+!util/slice/**
+# Exclude any sub directories ---------------------------------
+util/slice/*/**
+
+!util/wait/
+!util/wait/**
+# Exclude any sub directories ---------------------------------
+util/wait/*/**
+
+# Only include the module errors ------------------------------
 !errors/
 !errors/**
 # Exclude any sub directories ---------------------------------
 errors/*/**
-
-# Only include the module persist/sqldb -------------------
-!server/
-!server/auth/
-!server/auth/**
-
-!server/auth/serviceaccount/
-!server/auth/serviceaccount/**
-# Exclude any sub directories ---------------------------------
-server/auth/serviceaccount/*/**
-
-!server/auth/sso/
-!server/auth/sso/**
-# Exclude any sub directories ---------------------------------
-server/auth/sso/*/**
-
-!server/auth/types/
-!server/auth/types/**
-# Exclude any sub directories ---------------------------------
-server/auth/types/*/**
-
-!server/auth/webhook/
-!server/auth/webhook/**
-# Exclude any sub directories ---------------------------------
-server/auth/webhook/*/**
-
-!server/cache/
-!server/cache/**
-# Exclude any sub directories ---------------------------------
-server/cache/*/**
-
-!server/types/
-!server/types/**
-# Exclude any sub directories ---------------------------------
-server/types/*/**
-
-!server/utils/
-!server/utils/**
-# Exclude any sub directories ---------------------------------
-server/utils/*/**
-
-# Only include the module persist/sqldb -------------------
-!persist/
-!persist/sqldb/
-!persist/sqldb/**
-# Exclude any sub directories ---------------------------------
-persist/sqldb/*/**
 
 # And not these files -----------------------------------------
 !LICENSE
