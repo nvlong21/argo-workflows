@@ -93,14 +93,14 @@ pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
 
 !workflow/
 
-# Only include the module workflow/creator -----------------------
+# Only include the module workflow/creator --------------------
 !workflow/creator/
 !workflow/creator/**
 # Exclude any sub directories ---------------------------------
 workflow/creator/*/**
 
 !workflow/artifacts/
-# Only include the module workflow/artifacts/resource -----------------------
+# Only include the module workflow/artifacts/resource ---------
 !workflow/artifacts/resource/
 !workflow/artifacts/resource/**
 # Exclude any sub directories ---------------------------------
@@ -182,6 +182,32 @@ errors/*/**
 
 # Only include the module persist/sqldb -------------------
 !server/
+!server/auth/
+!server/auth/**
+
+!server/auth/serviceaccount/
+!server/auth/serviceaccount/**
+# Exclude any sub directories ---------------------------------
+server/auth/serviceaccount/*/**
+
+!server/auth/sso/
+!server/auth/sso/**
+# Exclude any sub directories ---------------------------------
+server/auth/sso/*/**
+
+!server/auth/types/
+!server/auth/types/**
+# Exclude any sub directories ---------------------------------
+server/auth/types/*/**
+
+!server/auth/webhook/
+!server/auth/webhook/**
+# Exclude any sub directories ---------------------------------
+server/auth/webhook/*/**
+
+# Exclude any other sub directories ---------------------------------
+server/auth/*/**
+
 !server/utils/
 !server/utils/**
 # Exclude any sub directories ---------------------------------
