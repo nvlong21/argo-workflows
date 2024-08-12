@@ -85,6 +85,13 @@ pkg/client/clientset/versioned/scheme/*/**
 pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
 
 !workflow/
+
+# Only include the module workflow/common -----------------------
+!workflow/common/
+!workflow/common/common.go
+# Exclude any sub directories ---------------------------------
+workflow/common/*/**
+
 # Only include the module workflow/util -----------------------
 !workflow/util/
 !workflow/util/util.go
