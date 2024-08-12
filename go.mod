@@ -1,6 +1,8 @@
 module github.com/Ash-exp/argo-workflows/v3
 
-go 1.22.5
+go 1.21
+
+toolchain go1.21.8
 
 require (
 	github.com/argoproj/argo-workflows/v3 v3.5.10
