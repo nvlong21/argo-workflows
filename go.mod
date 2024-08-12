@@ -5,7 +5,6 @@ go 1.22.5
 require (
 	github.com/argoproj/argo-workflows/v3 v3.5.10
 	github.com/gogo/protobuf v1.3.2
-	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/sirupsen/logrus v1.9.3
 	k8s.io/api v0.27.1
 	k8s.io/apimachinery v0.27.1
@@ -16,11 +15,8 @@ require (
 
 require (
 	github.com/go-openapi/jsonreference v0.20.4 // indirect
-	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	golang.org/x/oauth2 v0.16.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
-	google.golang.org/genproto v0.0.0-20240116215550-a9fa1716bcac // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240125205218-1f4bbc51befe // indirect
 	k8s.io/klog/v2 v2.100.1 // indirect
 	k8s.io/utils v0.0.0-20230505201702-9f6742963106 // indirect
 )
@@ -47,8 +43,6 @@ require (
 	golang.org/x/term v0.22.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20240125205218-1f4bbc51befe // indirect
-	google.golang.org/grpc v1.61.0 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -59,6 +53,6 @@ require (
 
 // Avoid CVE-2023-45288
 replace (
-	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/Ash-exp/argo-workflows/v3 v3.5.10-beta12
+	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/Ash-exp/argo-workflows/v3 v3.5.10-beta14
 	golang.org/x/net => golang.org/x/net v0.23.0
 )
