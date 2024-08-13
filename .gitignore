@@ -141,6 +141,7 @@ errors/*/**
 !Dockerfile
 !Dockerfile.windows
 !.gitignore
+!.gitattributes
 !Makefile
 !go.mod
 !go.sum

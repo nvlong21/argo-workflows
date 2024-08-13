@@ -9,6 +9,8 @@ MAKEFLAGS += --no-builtin-rules
 BUILD_DATE            := $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 # below 3 are copied verbatim to release.yaml
 GIT_COMMIT            := $(shell git rev-parse HEAD || echo unknown)
+GIT_TAG               := v3.5.10
+TAG_COMMIT_HASH       :=$(shell git ls-remote upstream  | cut -f1)
 GIT_TAG               := $(shell git describe --exact-match --tags --abbrev=0  2> /dev/null || echo untagged)
 GIT_REMOTE            := origin
 GIT_BRANCH            := $(shell git rev-parse --symbolic-full-name --verify --quiet --abbrev-ref HEAD)
@@ -27,6 +29,8 @@ $(info GIT_BRANCH=$(GIT_BRANCH))
 $(info RELEASE_TAG=$(RELEASE_TAG))
 $(info DEV_BRANCH=$(DEV_BRANCH))
 $(info VERSION=$(VERSION))
+$(info GIT_TAG=$(GIT_TAG))
+$(info TAG_COMMIT_HASH=$(TAG_COMMIT_HASH))
 
 override LDFLAGS += \
   -X github.com/argoproj/argo-workflows/v3.version=$(VERSION) \
@@ -48,11 +52,11 @@ run: git-remote pre-commit
 git-remote:
 	@echo "-------- Adding git remote upstream --------"
 	git config remote.upstream.url >&- || git remote add upstream https://github.com/argoproj/argo-workflows.git
-	git fetch upstream --tags
+	git remote update
 
 git-merge:
 	@echo "-------- Merging git tag from upstream --------"
-	git merge
+	git merge upstream/$(TAG_COMMIT_HASH)
 
 pre-commit:
 	@echo "-------- Running pre-commit checks --------"
