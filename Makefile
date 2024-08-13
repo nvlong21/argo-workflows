@@ -56,13 +56,13 @@ git-remote:
 
 git-merge:
 	@echo "-------- Merging git tag from upstream --------"
-	git merge --no-commit --no-ff $(TAG_COMMIT_HASH)
-
-pre-commit:
-	@echo "-------- Running pre-commit checks --------"
+	git merge -s recursive -X ours $(TAG_COMMIT_HASH)
 	git rm -r --cached -f .
 	git add .
 	git checkout $(GIT_BRANCH) ./workflow/util/util.go
+
+pre-commit:
+	@echo "-------- Running pre-commit checks --------"
 	go mod tidy
 	go mod vendor
 
