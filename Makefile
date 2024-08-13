@@ -57,7 +57,8 @@ git-remote:
 git-merge:
 	@echo "-------- Merging git tag from upstream --------"
 	git config merge.ours.driver true
-	git merge $(TAG_COMMIT_HASH)
+	git status --porcelain | awk '{if ($1=="DU") print $2}' | xargs git rm
+	git merge -X ours -X ignore-all-space $(TAG_COMMIT_HASH)
 	git rm -r --cached -f .
 	git add .
 	git checkout $(GIT_BRANCH) ./workflow/util/util.go
