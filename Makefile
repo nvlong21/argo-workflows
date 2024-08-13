@@ -47,7 +47,7 @@ ifndef $(GOPATH)
 endif
 
 .PHONY: run
-run: git-remote git-merge pre-commit
+run: git-remote git-merge pre-commit clean-up
 
 git-remote:
 	@echo "-------- Adding git remote upstream --------"
@@ -65,4 +65,7 @@ pre-commit:
 	git checkout $(GIT_BRANCH) ./workflow/util/util.go
 	go mod tidy
 	go mod vendor
+
+clean-up:
+	git clean -dfX
 
