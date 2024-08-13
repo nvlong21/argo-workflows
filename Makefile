@@ -10,7 +10,7 @@ BUILD_DATE            := $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 # below 3 are copied verbatim to release.yaml
 GIT_COMMIT            := $(shell git rev-parse HEAD || echo unknown)
 GIT_UPSTREAM_TAG      := v3.5.10
-TAG_COMMIT_HASH       :=$(shell git ls-remote upstream $(GIT_UPSTREAM_TAG) | cut -f1)
+TAG_COMMIT_HASH       := $(shell git ls-remote upstream $(GIT_UPSTREAM_TAG) | cut -f1)
 GIT_TAG               := $(shell git describe --exact-match --tags --abbrev=0  2> /dev/null || echo untagged)
 GIT_REMOTE            := origin
 GIT_BRANCH            := $(shell git rev-parse --symbolic-full-name --verify --quiet --abbrev-ref HEAD)
@@ -54,14 +54,15 @@ git-remote:
 	git config remote.upstream.url >&- || git remote add upstream https://github.com/argoproj/argo-workflows.git
 	git remote update
 
+REMOVE_DELETED_FILES := $(shell git status --porcelain | awk '$1 == "DU" {print $2}' | xargs git rm)
+
 git-merge:
 	@echo "-------- Merging git tag from upstream --------"
-	git config merge.ours.driver true
-	git merge -X ours -X ignore-all-space $(TAG_COMMIT_HASH)
-	git status --porcelain | awk '{if ($1=="DU") print $2}' | xargs git rm
+	git merge -X ours -X ignore-all-space $(TAG_COMMIT_HASH) > /dev/null 2>&1 || echo "Merge failed with conflicts ⚠️. Resolve conflicts and commit."
+	git checkout $(GIT_BRANCH) ./workflow/util/util.go
+	$(REMOVE_DELETED_FILES)
 	git rm -r --cached -f .
 	git add .
-	git checkout $(GIT_BRANCH) ./workflow/util/util.go
 
 pre-commit:
 	@echo "-------- Running pre-commit checks --------"
