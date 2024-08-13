@@ -65,6 +65,7 @@ result
 !pkg/apis/workflow/v1alpha1/**
 # Exclude any sub directories ---------------------------------
 pkg/apis/workflow/v1alpha1/*/**
+pkg/apis/workflow/v1alpha1/openapi_generated.go
 
 # Only include the module pkg/client/clientset/versioned/typed/workflow/v1alpha1
 !pkg/client/
