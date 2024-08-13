@@ -56,7 +56,7 @@ git-remote:
 
 git-merge:
 	@echo "-------- Merging git tag from upstream --------"
-	git merge $(TAG_COMMIT_HASH)
+	git merge --no-commit --no-ff $(TAG_COMMIT_HASH)
 
 pre-commit:
 	@echo "-------- Running pre-commit checks --------"
