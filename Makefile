@@ -9,8 +9,8 @@ MAKEFLAGS += --no-builtin-rules
 BUILD_DATE            := $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 # below 3 are copied verbatim to release.yaml
 GIT_COMMIT            := $(shell git rev-parse HEAD || echo unknown)
-GIT_TAG               := v3.5.10
-TAG_COMMIT_HASH       :=$(shell git ls-remote upstream  | cut -f1)
+GIT_UPSTREAM_TAG      := v3.5.10
+TAG_COMMIT_HASH       :=$(shell git ls-remote upstream $(GIT_UPSTREAM_TAG) | cut -f1)
 GIT_TAG               := $(shell git describe --exact-match --tags --abbrev=0  2> /dev/null || echo untagged)
 GIT_REMOTE            := origin
 GIT_BRANCH            := $(shell git rev-parse --symbolic-full-name --verify --quiet --abbrev-ref HEAD)
@@ -47,7 +47,7 @@ ifndef $(GOPATH)
 endif
 
 .PHONY: run
-run: git-remote pre-commit
+run: git-remote git-merge pre-commit
 
 git-remote:
 	@echo "-------- Adding git remote upstream --------"
@@ -56,7 +56,7 @@ git-remote:
 
 git-merge:
 	@echo "-------- Merging git tag from upstream --------"
-	git merge upstream/$(TAG_COMMIT_HASH)
+	git merge $(TAG_COMMIT_HASH)
 
 pre-commit:
 	@echo "-------- Running pre-commit checks --------"
