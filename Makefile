@@ -63,7 +63,7 @@ remove-deleted-files:
 
 git-dir-up:
 	@echo "--------------------- Removing .gitignore files -------------------------"
-	git checkout $(GIT_BRANCH) ./workflow/util/util.go
+	git checkout feat-dependency-optimisation ./workflow/util/util.go
 	git rm -r --cached -f . > /dev/null
 	git add .
 

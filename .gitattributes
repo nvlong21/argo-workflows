@@ -1,5 +1,6 @@
 Makefile merge=ours
 .gitignore merge=ours
 .gitattributes merge=ours
+README.md merge=ours
 go.mod merge=ours
 go.sum merge=ours

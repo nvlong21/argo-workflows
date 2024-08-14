@@ -146,6 +146,7 @@ errors/*/**
 !go.mod
 !go.sum
 !version.go
+!README.md
 
 # Ignore all test files ---------------------------------------
 *_test.go
