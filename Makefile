@@ -10,12 +10,9 @@ BUILD_DATE            := $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 GIT_COMMIT            := $(shell git rev-parse HEAD || echo unknown)
 GIT_REMOTE            := origin
 GIT_BRANCH            := $(shell git rev-parse --symbolic-full-name --verify --quiet --abbrev-ref HEAD)
-DEV_BRANCH            := $(shell [ "$(GIT_BRANCH)" = main ] || [ `echo $(GIT_BRANCH) | cut -c -8` = release- ] || [ `echo $(GIT_BRANCH) | cut -c -4` = dev- ] || [ $(RELEASE_TAG) = true ] && echo false || echo true)
-GIT_TAG               := $()
 
 $(info GIT_COMMIT=$(GIT_COMMIT))
 $(info GIT_BRANCH=$(GIT_BRANCH))
-$(info DEV_BRANCH=$(DEV_BRANCH))
 
 override LDFLAGS += \
   -X github.com/argoproj/argo-workflows/v3.buildDate=$(BUILD_DATE) \
@@ -50,8 +47,16 @@ endif
 git-merge:
 	@echo "--------------------- Merging git tag from upstream ---------------------"
 	git config merge.ours.driver true
-	git merge -X ignore-all-space $(TAG_COMMIT_HASH) || \
-	@echo "Merge failed with conflicts ⚠️. Resolve conflicts and commit."
+	@git merge --no-commit -X ignore-all-space $(TAG_COMMIT_HASH) >/dev/null 2>&1 || \
+	echo "GIT exist status: $$?"; \
+	if [[ $($?) -eq 0 ]]; then \
+		echo "Merge successful ✔️. Please commit the changes."; \
+	elif [[ $($?) -eq 1 ]]; then \
+		echo "Merge failed with conflicts ⚠️. Resolve conflicts and commit."; \
+	else \
+		echo "Merge failed with unknown error ⚠️. Please check the logs."; exit 2; \
+	fi
+
 
 remove-deleted-files:
 	@echo "--------------------- Removing deleted files -------------------------"
