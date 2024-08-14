@@ -1,8 +1,6 @@
 export SHELL:=bash
 export SHELLOPTS:=$(if $(SHELLOPTS),$(SHELLOPTS):)pipefail:errexit
 
-# https://stackoverflow.com/questions/4122831/disable-make-builtin-rules-and-variables-from-inside-the-make-file
-MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 
 # -- build metadata
@@ -47,25 +45,30 @@ ifndef $(GOPATH)
 endif
 
 .PHONY: run
-run: git-remote git-merge pre-commit clean-up
+run: git-remote git-merge remove-deleted-files git-dir-up clean-up pre-commit
 
 git-remote:
-	@echo "-------- Adding git remote upstream --------"
+	@echo "--------------------- Adding git remote upstream ------------------------"
 	git config remote.upstream.url >&- || git remote add upstream https://github.com/argoproj/argo-workflows.git
 	git remote update
 
-REMOVE_DELETED_FILES := $(shell git status --porcelain | awk '$1 == "DU" {print $2}' | xargs git rm)
-
 git-merge:
-	@echo "-------- Merging git tag from upstream --------"
-	git merge -X ours -X ignore-all-space $(TAG_COMMIT_HASH) > /dev/null 2>&1 || echo "Merge failed with conflicts ⚠️. Resolve conflicts and commit."
+	@echo "--------------------- Merging git tag from upstream ---------------------"
+	git config merge.ours.driver true
+	git merge -X ignore-all-space $(TAG_COMMIT_HASH) || echo "Merge failed with conflicts ⚠️. Resolve conflicts and commit."
+
+remove-deleted-files:
+	@echo "--------------------- Removing deleted files -------------------------"
+	git status --porcelain | awk '{if ($$1=="DU") print $$2}' | xargs git rm > /dev/null
+
+git-dir-up:
+	@echo "--------------------- Removing .gitignore files -------------------------"
 	git checkout $(GIT_BRANCH) ./workflow/util/util.go
-	$(REMOVE_DELETED_FILES)
-	git rm -r --cached -f .
+	git rm -r --cached -f . > /dev/null
 	git add .
 
 pre-commit:
-	@echo "-------- Running pre-commit checks --------"
+	@echo "--------------------- Running pre-commit checks -------------------------"
 	go mod tidy
 	go mod vendor
 
