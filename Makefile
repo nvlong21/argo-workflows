@@ -53,7 +53,7 @@ git-merge:
 		echo "Merge successful ✔️. Please commit the changes."; \
 	elif [[ $($?) -eq 1 ]]; then \
 		echo "Merge failed with conflicts ⚠️. Resolve conflicts and commit."; \
-	else \
+	elif [[ $($?) -gt 0 ]]; then \
 		echo "Merge failed with unknown error ⚠️. Please check the logs."; exit 2; \
 	fi
 
