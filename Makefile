@@ -79,3 +79,4 @@ clean-up:
 git-tagging:
 	git tag -am "Release $(tag) created for commit hash $(GIT_COMMIT) branch: $(GIT_REMOTE)/$(GIT_BRANCH) time: $(BUILD_DATE)" $(tag) -f
 	git push origin $(tag)
+
