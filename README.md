@@ -1,158 +1,61 @@
-<!-- markdownlint-disable-next-line MD041 -->
-[![Security Status](https://github.com/argoproj/argo-workflows/actions/workflows/snyk.yml/badge.svg?branch=release-3.5)](https://github.com/argoproj/argo-workflows/actions/workflows/snyk.yml?query=branch%3Arelease-3.5)
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/3830/badge)](https://bestpractices.coreinfrastructure.org/projects/3830)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/argoproj/argo-workflows/badge)](https://api.securityscorecards.dev/projects/github.com/argoproj/argo-workflows)
-[![FOSSA License Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fargoproj%2Fargo-workflows.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fargoproj%2Fargo-workflows?ref=badge_shield)
-[![Slack](https://img.shields.io/badge/slack-argoproj-brightgreen.svg?logo=slack)](https://argoproj.github.io/community/join-slack)
-[![Twitter Follow](https://img.shields.io/twitter/follow/argoproj?style=social)](https://twitter.com/argoproj)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-argoproj-blue.svg?logo=linkedin)](https://www.linkedin.com/company/argoproj/)
-[![Release Version](https://img.shields.io/github/v/release/argoproj/argo-workflows?label=argo-workflows)](https://github.com/argoproj/argo-workflows/releases/latest)
-[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/argo-workflows)](https://artifacthub.io/packages/helm/argo/argo-workflows)
+## Guide to publish custom versions from Argo Workflows
 
-## What is Argo Workflows?
+This guide will help you to publish a custom version of Argo Workflows with optimal dependencies. 
+This guide will cater specific to the [devtron-labs](https://github.com/devtron-labs/devtron.git) project use case.
 
-Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes.
-Argo Workflows is implemented as a Kubernetes CRD (Custom Resource Definition).
 
-* Define workflows where each step is a container.
-* Model multi-step workflows as a sequence of tasks or capture the dependencies between tasks using a directed acyclic graph (DAG).
-* Easily run compute intensive jobs for machine learning or data processing in a fraction of the time using Argo Workflows on Kubernetes.
+### Prerequisites
+- [Git](https://git-scm.com/)
+- [golang](https://golang.org/) version 1.21 or higher
+- [bash](https://www.gnu.org/software/bash/) shell
 
-Argo is a [Cloud Native Computing Foundation (CNCF)](https://cncf.io/) graduated project.
+### Steps
 
-## Use Cases
+- Clone the Argo Workflows repository
+```bash
+git clone https://github.com/devtron-labs/argo-workflows.git
+cd argo-workflows
+```
+- Add remote to the official Argo Workflows repository
+```bash
+git remote add upstream https://github.com/argoproj/argo-workflows.git
+git remote update
+```
 
-* [Machine Learning pipelines](https://argo-workflows.readthedocs.io/en/release-3.5/use-cases/machine-learning/)
-* [Data and batch processing](https://argo-workflows.readthedocs.io/en/release-3.5/use-cases/data-processing/)
-* [Infrastructure automation](https://argo-workflows.readthedocs.io/en/release-3.5/use-cases/infrastructure-automation/)
-* [CI/CD](https://argo-workflows.readthedocs.io/en/release-3.5/use-cases/ci-cd/)
-* [Other use cases](https://argo-workflows.readthedocs.io/en/release-3.5/use-cases/other/)
+- Export the version of Argo Workflows you want to publish
+```bash
+export Tag=v3.5.10
+export TagHash=$(git ls-remote upstream $Tag | cut -f1)
+```
 
-## Why Argo Workflows?
+- Validate the version and commit hash
+```bash
+echo $Tag
+echo $TagHash
+```
+- Create a new branch for the custom version
+```bash
+git checkout -b release-$Tag $TagHash
+```
+- Get the prerequisites for the custom version from **main** branch and commit them
+```bash
+git checkout main ./go.mod ./go.sum ./Makefile ./.gitignore ./.gitattributes ./README.md
+git commit -am "initial commit"
+```
 
-* Argo Workflows is the most popular workflow execution engine for Kubernetes.
-* Light-weight, scalable, and easier to use.
-* Designed from the ground up for containers without the overhead and limitations of legacy VM and server-based environments.
-* Cloud agnostic and can run on any Kubernetes cluster.
+- Setup commit changes for the custom version by **make** command
+```bash
+make tag=$Tag
+```
+- Commit and push the changes to the custom version branch
+```bash
+git commit -am "release: $Tag"
+git push --set-upstream origin release-$Tag
+```
+- Finally, create a git tag for the custom version
+```bash
+make git-tagging
+```
+- Now, create a new [release](https://github.com/devtron-labs/argo-workflows/releases/new) in the GitHub repository with the selected version tag
 
-[Read what people said in our latest survey](https://blog.argoproj.io/argo-workflows-events-2023-user-survey-results-82c53bc30543)
-
-## Try Argo Workflows
-
-You can try Argo Workflows via one of the following:
-
-1. [Interactive Training Material](https://killercoda.com/argoproj/course/argo-workflows/)
-1. [Access the demo environment](https://workflows.apps.argoproj.io/workflows/argo)
-
-![Screenshot](docs/assets/screenshot.png)
-
-## Who uses Argo Workflows?
-
-[About 200+ organizations are officially using Argo Workflows](USERS.md)
-
-## Ecosystem
-
-Just some of the projects that use or rely on Argo Workflows (complete list [here](https://github.com/akuity/awesome-argo#ecosystem-projects)):
-
-* [Argo Events](https://github.com/argoproj/argo-events)
-* [Couler](https://github.com/couler-proj/couler)
-* [Hera](https://github.com/argoproj-labs/hera-workflows)
-* [Katib](https://github.com/kubeflow/katib)
-* [Kedro](https://kedro.readthedocs.io/en/stable/)
-* [Kubeflow Pipelines](https://github.com/kubeflow/pipelines)
-* [Netflix Metaflow](https://metaflow.org)
-* [Onepanel](https://github.com/onepanelio/onepanel)
-* [Orchest](https://github.com/orchest/orchest/)
-* [Piper](https://github.com/quickube/piper)
-* [Ploomber](https://github.com/ploomber/ploomber)
-* [Seldon](https://github.com/SeldonIO/seldon-core)
-* [SQLFlow](https://github.com/sql-machine-learning/sqlflow)
-
-## Client Libraries
-
-Check out our [Java, Golang and Python clients](docs/client-libraries.md).
-
-## Quickstart
-
-* [Get started here](https://argo-workflows.readthedocs.io/en/release-3.5/quick-start/)
-* [Walk-through examples](https://argo-workflows.readthedocs.io/en/release-3.5/walk-through/)
-
-## Documentation
-
-[View the docs](https://argo-workflows.readthedocs.io/en/release-3.5/)
-
-## Features
-
-An incomplete list of features Argo Workflows provide:
-
-* UI to visualize and manage Workflows
-* Artifact support (S3, Artifactory, Alibaba Cloud OSS, Azure Blob Storage, HTTP, Git, GCS, raw)
-* Workflow templating to store commonly used Workflows in the cluster
-* Archiving Workflows after executing for later access
-* Scheduled workflows using cron
-* Server interface with REST API (HTTP and GRPC)
-* DAG or Steps based declaration of workflows
-* Step level input & outputs (artifacts/parameters)
-* Loops
-* Parameterization
-* Conditionals
-* Timeouts (step & workflow level)
-* Retry (step & workflow level)
-* Resubmit (memoized)
-* Suspend & Resume
-* Cancellation
-* K8s resource orchestration
-* Exit Hooks (notifications, cleanup)
-* Garbage collection of completed workflow
-* Scheduling (affinity/tolerations/node selectors)
-* Volumes (ephemeral/existing)
-* Parallelism limits
-* Daemoned steps
-* DinD (docker-in-docker)
-* Script steps
-* Event emission
-* Prometheus metrics
-* Multiple executors
-* Multiple pod and workflow garbage collection strategies
-* Automatically calculated resource usage per step
-* Java/Golang/Python SDKs
-* Pod Disruption Budget support
-* Single-sign on (OAuth2/OIDC)
-* Webhook triggering
-* CLI
-* Out-of-the box and custom Prometheus metrics
-* Windows container support
-* Embedded widgets
-* Multiplex log viewer
-
-## Community Meetings
-
-We host monthly community meetings where we and the community showcase demos and discuss the current and future state of the project. Feel free to join us!
-For Community Meeting information, minutes and recordings, please [see here](https://bit.ly/argo-wf-cmty-mtng).
-
-Participation in Argo Workflows is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)
-
-## Community Blogs and Presentations
-
-* [Awesome-Argo: A Curated List of Awesome Projects and Resources Related to Argo](https://github.com/terrytangyuan/awesome-argo)
-* [Automation of Everything - How To Combine Argo Events, Workflows & Pipelines, CD, and Rollouts](https://youtu.be/XNXJtxkUKeY)
-* [Argo Workflows and Pipelines - CI/CD, Machine Learning, and Other Kubernetes Workflows](https://youtu.be/UMaivwrAyTA)
-* [Argo Ansible role: Provisioning Argo Workflows on OpenShift](https://medium.com/@marekermk/provisioning-argo-on-openshift-with-ansible-and-kustomize-340a1fda8b50)
-* [Argo Workflows vs Apache Airflow](http://bit.ly/30YNIvT)
-* [CI/CD with Argo on Kubernetes](https://medium.com/@bouwe.ceunen/ci-cd-with-argo-on-kubernetes-28c1a99616a9)
-* [Define Your CI/CD Pipeline with Argo Workflows](https://haque-zubair.medium.com/define-your-ci-cd-pipeline-with-argo-workflows-25aefb02fa63)
-* [Running Argo Workflows Across Multiple Kubernetes Clusters](https://admiralty.io/blog/running-argo-workflows-across-multiple-kubernetes-clusters/)
-* [Open Source Model Management Roundup: Polyaxon, Argo, and Seldon](https://www.anaconda.com/blog/developer-blog/open-source-model-management-roundup-polyaxon-argo-and-seldon/)
-* [Producing 200 OpenStreetMap extracts in 35 minutes using a scalable data workflow](https://www.interline.io/blog/scaling-openstreetmap-data-workflows/)
-* [Argo integration review](http://dev.matt.hillsdon.net/2018/03/24/argo-integration-review.html)
-* TGI Kubernetes with Joe Beda: [Argo workflow system](https://www.youtube.com/watch?v=M_rxPPLG8pU&start=859)
-
-## Project Resources
-
-* [Argo Project GitHub organization](https://github.com/argoproj)
-* [Argo Website](https://argoproj.github.io/)
-* [Argo Slack](https://argoproj.github.io/community/join-slack)
-
-## Security
-
-See [SECURITY.md](SECURITY.md).
+- All set! You have successfully published a custom version of Argo Workflows

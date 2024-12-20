@@ -1,3 +1,4 @@
+# Native gitignore
 Pipfile
 .vscode/
 .idea/
@@ -48,3 +49,104 @@ manifests/namespace-install.yaml
 node_modules 
 result
 .devenv
+
+# Custom gitignore for Argo Workflows project
+# Ignore everything -------------------------------------------
+*
+
+# But not these directories -----------------------------------
+!pkg/
+
+# Only include the module pkg/apis/workflow/v1alpha1 ----------
+!pkg/apis/
+!pkg/apis/workflow/
+!pkg/apis/workflow/**.go
+!pkg/apis/workflow/v1alpha1/
+!pkg/apis/workflow/v1alpha1/**
+# Exclude any sub directories ---------------------------------
+pkg/apis/workflow/v1alpha1/*/**
+pkg/apis/workflow/v1alpha1/openapi_generated.go
+
+# Only include the module pkg/client/clientset/versioned/typed/workflow/v1alpha1
+!pkg/client/
+!pkg/client/clientset/
+!pkg/client/clientset/versioned/
+!pkg/client/clientset/versioned/**.go
+
+!pkg/client/clientset/versioned/scheme/
+!pkg/client/clientset/versioned/scheme/**
+# Exclude any sub directories ---------------------------------
+pkg/client/clientset/versioned/scheme/*/**
+
+!pkg/client/clientset/versioned/typed/
+!pkg/client/clientset/versioned/typed/workflow/
+!pkg/client/clientset/versioned/typed/workflow/v1alpha1/
+!pkg/client/clientset/versioned/typed/workflow/v1alpha1/**
+# Exclude any sub directories ---------------------------------
+pkg/client/clientset/versioned/typed/workflow/v1alpha1/*/**
+
+!workflow/
+
+# Only include the module workflow/common -----------------------
+!workflow/common/
+!workflow/common/common.go
+# Exclude any sub directories ---------------------------------
+workflow/common/*/**
+
+# Only include the module workflow/util -----------------------
+!workflow/util/
+!workflow/util/util.go
+# Exclude any sub directories ---------------------------------
+workflow/util/*/**
+
+!util/
+!util/env/
+!util/env/**
+# Exclude any sub directories ---------------------------------
+util/env/*/**
+
+!util/errors/
+!util/errors/**
+# Exclude any sub directories ---------------------------------
+util/errors/*/**
+
+!util/json/
+!util/json/fix.go
+# Exclude any sub directories ---------------------------------
+util/json/*/**
+
+!util/retry/
+!util/retry/**
+# Exclude any sub directories ---------------------------------
+util/retry/*/**
+
+!util/slice/
+!util/slice/**
+# Exclude any sub directories ---------------------------------
+util/slice/*/**
+
+!util/wait/
+!util/wait/**
+# Exclude any sub directories ---------------------------------
+util/wait/*/**
+
+# Only include the module errors ------------------------------
+!errors/
+!errors/**
+# Exclude any sub directories ---------------------------------
+errors/*/**
+
+# And not these files -----------------------------------------
+!LICENSE
+!Dockerfile
+!Dockerfile.windows
+!.gitignore
+!.gitattributes
+!Makefile
+!go.mod
+!go.sum
+!version.go
+!README.md
+
+# Ignore all test files ---------------------------------------
+*_test.go
