@@ -70,6 +70,7 @@ git-dir-up:
 
 pre-commit:
 	@echo "--------------------- Running pre-commit checks -------------------------"
+	rm -rf ./go.sum
 	go mod tidy
 	go mod vendor
 
