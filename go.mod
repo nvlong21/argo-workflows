@@ -1,4 +1,4 @@
-module github.com/devtron-labs/argo-workflows/v3
+module github.com/nvlong21/argo-workflows/v3
 
 go 1.21
 
@@ -55,6 +55,6 @@ require (
 
 // Avoid CVE-2023-45288
 replace (
-	github.com/argoproj/argo-workflows/v3 v3.5.13 => github.com/devtron-labs/argo-workflows/v3 v3.5.13
+	github.com/argoproj/argo-workflows/v3 v3.5.13 => github.com/nvlong21/argo-workflows/v3 v3.5.13
 	golang.org/x/net => golang.org/x/net v0.23.0
 )
