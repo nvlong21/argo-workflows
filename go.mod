@@ -1,11 +1,11 @@
-module github.com/argoproj/argo-workflows/v3
+module github.com/nvlong21/argo-workflows/v3
 
 go 1.21
 
 toolchain go1.21.8
 
 require (
-	github.com/argoproj/argo-workflows/v3 v3.5.13
+	github.com/argoproj/argo-workflows/v3 v3.5.10
 	github.com/gogo/protobuf v1.3.2
 	github.com/sirupsen/logrus v1.9.3
 	k8s.io/api v0.27.1
@@ -55,6 +55,6 @@ require (
 
 // Avoid CVE-2023-45288
 replace (
-	github.com/argoproj/argo-workflows/v3 v3.5.13 => github.com/nvlong21/argo-workflows/v3 v3.5.13
+	github.com/argoproj/argo-workflows/v3 v3.5.10 => github.com/nvlong21/argo-workflows/v3 v3.5.10
 	golang.org/x/net => golang.org/x/net v0.23.0
 )
